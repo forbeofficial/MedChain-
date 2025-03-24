@@ -19,23 +19,23 @@ The **Decentralized PHR System** empowers patients by:
 - **Privacy-Preserving Tech**: zk-SNARKs
 - **AI Integration**: FHIR record conversion
 - **Mobile Access**: NFC-enabled sharing
-
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ## System Workflow
 1. **Patient Data Ownership**: Users control their records, stored securely on the blockchain.
 2. **Data Encryption & Sharing**: Health data is encrypted and shared with authorized parties using zk-SNARKs.
 3. **Interoperability Support**: AI-powered conversion ensures compatibility with existing health record systems.
 4. **Emergency Access**: Healthcare providers can retrieve patient records quickly in urgent situations.
-
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ## Design & UI
 - Intuitive mobile app for patient and doctor access
 - Secure authorization and access management
 - NFC-enabled emergency data retrieval
-
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ## Implementation
 - **Backend**: Smart contracts on Polygon
 - **Frontend**: Mobile and web applications for patient and provider access
 - **Interoperability**: AI-driven conversion to FHIR format
-
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ## References
 Kim HJ, Kim HH, Ku H, et al. *Smart Decentralization of Personal Health Records with Physician Apps and Helper Agents on Blockchain: Platform Design and Implementation Study*. JMIR Med Inform. 2021;9(6):e26230. [Read More](https://pmc.ncbi.nlm.nih.gov/articles/PMC8218219/)
 
@@ -44,7 +44,7 @@ Kim HJ, Kim HH, Ku H, et al. *Smart Decentralization of Personal Health Records 
 - Shivnandu K
 - Saketh S
 - Harishankar P.P
-
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ## UI
 ![image](https://github.com/user-attachments/assets/2292ca27-3372-4094-b8f7-c7b02a633395)
 ![image](https://github.com/user-attachments/assets/6189e5ae-e9ea-4cda-b6d2-a1b2e987b68f)
@@ -52,6 +52,6 @@ Kim HJ, Kim HH, Ku H, et al. *Smart Decentralization of Personal Health Records 
 ![image](https://github.com/user-attachments/assets/65666b85-0048-4477-9a94-7b835c98ce08)
 
 Contact: **forbeofficial@gmail.com**
-
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ## Conclusion
 The **Decentralized Healthcare Application** transforms health record management by ensuring security, privacy, and rapid access in emergencies. By leveraging blockchain and AI technologies, it enhances patient empowerment while addressing interoperability challenges.
