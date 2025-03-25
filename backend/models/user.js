@@ -1,6 +1,10 @@
 const mongoose=require("mongoose");
 const{z}=require("zod");
+<<<<<<< HEAD
 const bcrypt=require("bcrypt")
+=======
+
+>>>>>>> b0e32cb40e3bd11f13d966bab9c31d23f54c4624
 const Schema = mongoose.Schema
 
 const uservalidationSchema=z.object({
@@ -14,7 +18,11 @@ const uservalidationSchema=z.object({
 
 
 
+<<<<<<< HEAD
 const UserSchema = new Schema({
+=======
+const UserSchema = newSchema({
+>>>>>>> b0e32cb40e3bd11f13d966bab9c31d23f54c4624
     name:String,
     email:{type:String ,unique:true,required:true},
     password:{type:String,require:true,maxlength:20,minlength:8 },
