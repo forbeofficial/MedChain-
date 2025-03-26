@@ -66,25 +66,26 @@ app.post('/api/auth/signup', async (req, res) => {
 
 app.post('/api/auth/login', async (req, res) => {
     try {
-        const { email, password } = req.body;
-
-        const user = await User.findOne({ email });
+        const { phone, password } = req.body;  
+        const user = await User.findOne({ phone });  
         if (!user) {
-            return res.status(400).json({ error: 'Invalid email or password' });
+            return res.status(400).json({ error: 'Invalid phone or password' });
         }
 
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
-            return res.status(400).json({ error: 'Invalid email or password' });
+            return res.status(400).json({ error: 'Invalid phone or password' });
         }
 
         const token = jwt.sign({ id: user._id, userType: user.userType }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
         res.json({ message: 'Login successful', token });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
+
 
 // app.get('/api/auth/me', authMiddleware, async (req, res) => {
 //     try {

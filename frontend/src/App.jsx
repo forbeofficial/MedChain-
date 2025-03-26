@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import "./App.css";
 
 // Import both forms
-import SignInForm from "./SignInForm";
-import SignUpForm from "./SignUpForm";
+import SignInForm from "./Createaccount";
+import SignUpForm from "./Login";
 
 function App() {
   // 'isSignUp' determines which form to show
