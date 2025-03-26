@@ -11,12 +11,10 @@ function SignUpForm({ onSwitch }) {
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
 
-  // Handle input change
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
@@ -25,7 +23,6 @@ function SignUpForm({ onSwitch }) {
     try {
       const res = await axios.post("http://localhost:5000/api/auth/login", formData);
       
-      // Store token for authentication
       localStorage.setItem("authToken", res.data.token);
       setMessage("Login successful!");
     } catch (err) {
