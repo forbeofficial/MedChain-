@@ -1,8 +1,9 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
+const path = require('path');
 
 const LabResultSchema = new mongoose.Schema({
     reportId: {
-        type: String,  
+        type: String,
         unique: true,
         required: true,
         index: true
@@ -23,11 +24,16 @@ const LabResultSchema = new mongoose.Schema({
         required: true
     },
     reportFile: {
-        type: String
+        type: String,
+        required: true,
+        validate: {
+            validator: v => path.isAbsolute(v) || path.normalize(v) === v,
+            message: 'Invalid file path'
+        }
     },
     date: {
         type: Date,
-        default: () => new Date()
+        default: Date.now
     },
     notes: {
         type: String,
@@ -35,17 +41,10 @@ const LabResultSchema = new mongoose.Schema({
     }
 });
 
-
 LabResultSchema.pre("save", function(next) {
-    try {
-        if (!this.reportId) {
-            this.reportId = `REP-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
-            
-        }
-        next();
-    } catch (error) {
-        next(new Error(`Failed to generate reportId: ${error.message}`));  // nyan ith debugger use cheytat aan. 
+    if (!this.reportId) {
+        this.reportId = `REP-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
     }
+    next();
 });
-
 module.exports = mongoose.model("LabResult", LabResultSchema);
