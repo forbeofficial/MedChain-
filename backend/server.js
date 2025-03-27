@@ -296,25 +296,36 @@ app.get('/api/health/allergies', authMiddleware, async (req, res) => {
 
 
 app.post('/api/lab/upload', authMiddleware, upload.single('reportFile'), async (req, res) => {
-    if (req.user.userType !== 'doctor') return res.status(403).json({ error: 'Forbidden' });
-
-    const validation = labResultValidationSchema.safeParse({
-        userId: req.body.patient,
-        testName: req.body.testType,
-        resultValue: req.body.result,
-        date: req.body.date
-    });
-    if (!validation.success) return res.status(400).json({ errors: validation.error.errors });
+    if (req.user.userType !== 'doctor') {
+        return res.status(403).json({ error: 'Forbidden' });
+    }
 
     try {
-        const { patient, testType, result, date } = req.body;
+        const { patient, testType, result, date, notes } = req.body;
+        
+        if (!req.file) {
+            return res.status(400).json({ error: 'Report file is required' });
+        }
+
+        const userExists = await User.findById(patient);
+        if (!userExists) {
+            return res.status(404).json({ error: 'Patient not found' });
+        }
+
+        const parsedDate = date ? new Date(date) : new Date();
+        if (date && isNaN(parsedDate.getTime())) {
+            return res.status(400).json({ error: 'Invalid date format' });
+        }
+
         const newReport = new LabResult({
             user: patient,
             testName: testType,
             resultValue: result,
-            date: date ? new Date(date) : new Date(),
-            reportFile: req.file?.path
+            date: parsedDate,
+            reportFile: path.normalize(req.file.path),
+            notes: notes || ''
         });
+
         await newReport.save();
         res.status(201).json({ message: 'Lab report uploaded', report: newReport });
     } catch (error) {
@@ -322,6 +333,7 @@ app.post('/api/lab/upload', authMiddleware, upload.single('reportFile'), async (
         res.status(500).json({ error: 'Server error', details: error.message });
     }
 });
+
 
 // Delete Lab Report
 app.delete('/api/lab/delete/:reportId', authMiddleware, async (req, res) => {
