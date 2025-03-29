@@ -6,8 +6,7 @@ const cors = require('cors');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { z } = require('zod');
-const connectDB = require('./config/db');
-const { User, Doctor } = require('./models/user');
+
 const authMiddleware = require('./middleware/authMiddleware');
 const multer = require('multer');
 const path = require('path');
@@ -24,7 +23,7 @@ connectDB();
 // Middleware
 app.use(bodyParser.json());
 app.use(cors({
-    origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+    origin: process.env.FRONTEND_URL || 'http://localhost:5173',
     credentials: true
 }));
 
@@ -32,7 +31,7 @@ app.use(cors({
 const storage = multer.diskStorage({
     destination: './uploads/',
     filename: (req, file, cb) => {
-        cb(null, `${Date.now()}-${file.originalname}`);
+        cb(null, ${Date.now()}-${file.originalname});
     }
 });
 const upload = multer({
@@ -219,7 +218,7 @@ app.post('/api/health/labresults', authMiddleware, async (req, res) => {
             resultValue,
             date: parsedDate,
             notes,
-            reportId: `REP-${Date.now()}-${Math.floor(Math.random() * 1000)}` 
+            reportId: REP-${Date.now()}-${Math.floor(Math.random() * 1000)} 
         });
 
         console.log('LabResult before save:', labResult.toObject());
@@ -362,8 +361,30 @@ app.use((err, req, res, next) => {
     next();
 });
 
+/////////////////////////////////
+
+
+///////////////////////////////////
+app.get('/api/auth/verify-token', (req, res) => {
+    const authHeader = req.headers.authorization;
+    
+    // Check if the authorization header exists and starts with "Bearer "
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+        return res.status(401).json({ error: 'Unauthorized - No token provided' });
+    }
+
+    const token = authHeader.split(" ")[1]; // Extract token
+
+    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+        if (err) {
+            return res.status(403).json({ error: 'Invalid or expired token' });
+        }
+        
+        res.json({ message: "Token is valid", user: decoded });
+    });
+});
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+    console.log(Server running on port ${PORT});
 });
