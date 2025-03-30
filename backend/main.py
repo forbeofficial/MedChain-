@@ -9,14 +9,11 @@ from PIL import Image
 import os
 from typing import Dict
 
-# Initialize FastAPI app
 app = FastAPI()
 
-# ✅ Fix Tesseract Path Issues (Windows)
 TESSERACT_ENGINE_PATH = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 pytesseract.pytesseract.tesseract_cmd = TESSERACT_ENGINE_PATH
 
-# ✅ CORS Configuration (Ensure React frontend can communicate)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:5173"],  # React app's origin
@@ -34,7 +31,6 @@ def preprocess_image(img: Image.Image) -> np.ndarray:
     )
     return processed_image
 
-# ✅ Function to extract fields using regex
 def get_field(field_name: str, text: str) -> str:
     pattern_dict = {
         "patient_name": {"pattern": r"Name:(.*)Date", "flags": 0},
@@ -51,7 +47,6 @@ def get_field(field_name: str, text: str) -> str:
             return matches[0].strip()
     return "Not Found"
 
-# ✅ Function to parse extracted text
 def parse(text: str) -> Dict:
     return {
         "patient_name": get_field("patient_name", text),
@@ -61,20 +56,15 @@ def parse(text: str) -> Dict:
         "refill": get_field("refill", text),
     }
 
-# ✅ API Endpoint to process image
 @app.post("/upload/")
 async def upload_image(file: UploadFile = File(...)):
     try:
-        # Open Image
         image = Image.open(file.file)
 
-        # Preprocess Image
         processed_img = preprocess_image(image)
 
-        # Extract Text
         extracted_text = pytesseract.image_to_string(processed_img, lang="eng")
 
-        # Parse Data
         extracted_info = parse(extracted_text)
 
         return JSONResponse(content={"data": extracted_info})
