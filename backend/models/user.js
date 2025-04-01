@@ -5,16 +5,22 @@ const bcrypt = require("bcrypt");
 const Schema = mongoose.Schema;
 
 // Enhanced Zod validation schema
-const uservalidationSchema = z.object({
+const userValidationSchema = z.object({
     name: z.string().min(3, "Name must be at least 3 characters").max(20, "Name must not exceed 20 characters"),
     username: z.string().min(3).max(30).regex(/^[a-zA-Z0-9_]+$/, "Username can only contain letters, numbers, and underscores"),
     email: z.string().email("Invalid email format"),
     password: z.string().min(8, "Password must be at least 8 characters").max(20, "Password must not exceed 20 characters"),
     phone: z.string().regex(/^\d{10}$/, "Phone must be exactly 10 digits"),
+    blockchainWallet: z.string().min(10, "blockchain wallet must be at least 10 characters").max(20,"max 20"),
     userType: z.enum(["doctor", "patient"]).default("patient")
 });
 
+const loginValidationSchema = z.object({
+    phone: z.string().regex(/^\d{10}$/, "Phone must be exactly 10 digits"),
+    password: z.string().min(8, "Password must be at least 8 characters")
+});
 
+// Mongoose User Schema
 const UserSchema = new Schema({
     name: { 
         type: String, 
@@ -44,6 +50,12 @@ const UserSchema = new Schema({
         minlength: 8, 
         maxlength: 20 
     },
+    blockchainWallet: {
+        type: String,
+        required: true,
+        minlength: 10,
+        maxlength: 20
+    },
     phone: {
         type: String,
         required: true,
@@ -67,7 +79,7 @@ const UserSchema = new Schema({
     }
 });
 
-
+// Doctor Schema
 const DoctorSchema = new Schema({
     userId: { 
         type: Schema.Types.ObjectId, 
@@ -105,17 +117,17 @@ const DoctorSchema = new Schema({
     }
 });
 
-
+// Pre-validation hook to validate user input using Zod schema
 UserSchema.pre('validate', function(next) {
     try {
-        uservalidationSchema.parse(this.toObject());
+        userValidationSchema.parse(this.toObject());
         next();
     } catch (error) {
         next(error);
     }
 });
 
-// Enhanced password hashing middleware
+// Password hashing middleware
 UserSchema.pre('save', async function(next) {
     try {
         if (this.isModified('password')) {
@@ -128,13 +140,13 @@ UserSchema.pre('save', async function(next) {
     }
 });
 
-
+// Method to compare passwords during login
 UserSchema.methods.comparePassword = async function(candidatePassword) {
     return await bcrypt.compare(candidatePassword, this.password);
 };
 
-
+// Export models and schemas
 const User = mongoose.model("User", UserSchema);
 const Doctor = mongoose.model("Doctor", DoctorSchema);
 
-module.exports = { User, Doctor };
+module.exports = { User, Doctor, loginValidationSchema, userValidationSchema };
