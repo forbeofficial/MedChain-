@@ -1,4 +1,4 @@
-# HackToFuture
+#MedChain 
 # Decentralized Healthcare Application
 
 ## Overview
