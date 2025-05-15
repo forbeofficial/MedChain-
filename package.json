@@ -1,0 +1,12 @@
+{
+  "name": "medchain--main",
+  "version": "1.0.0",
+  "description": "## Overview The **Decentralized Healthcare Application** is designed to provide secure, patient-controlled health records using blockchain technology. By leveraging Polygon and zk-SNARKs, the system ensures secure data sharing and interoperability while maintaining compliance with privacy regulations.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
