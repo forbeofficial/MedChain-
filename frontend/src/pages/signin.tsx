@@ -28,7 +28,8 @@ const handleSubmit = async (e: React.FormEvent) => {
 };
   return (
     <>
-     
+         <div className="max-w-md mx-auto p-6 bg-white rounded shadow">
+
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
@@ -50,7 +51,6 @@ const handleSubmit = async (e: React.FormEvent) => {
 
 
 
-        {/* phone number */}
 
         <div>
         <label
@@ -73,11 +73,7 @@ const handleSubmit = async (e: React.FormEvent) => {
           />
         </div>
       </div>
-      
-        {/* phone number */}
-        
-
-        {/*Password */}
+   
 
 
             <div>
@@ -103,7 +99,6 @@ const handleSubmit = async (e: React.FormEvent) => {
                   className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                 />
               </div>
-         {/*Password */}
 
             </div>
 
@@ -111,7 +106,6 @@ const handleSubmit = async (e: React.FormEvent) => {
               <div className="text-sm text-red-500 font-medium text-center">{error}</div>
             )}
             
-          {/*Button */}
             <div>
               <button
                 type="submit"
@@ -123,10 +117,10 @@ const handleSubmit = async (e: React.FormEvent) => {
 
               </button>
             </div>
-           {/*Button */}
 
           </form>
         </div>
+      </div>
       </div>
     </>
   )
