@@ -44,14 +44,7 @@ const handleSubmit = async (e: React.FormEvent) => {
 
 
        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-
-
-
           <form  onSubmit={handleSubmit} action="#" method="POST" className="space-y-6">
-
-
-
-
         <div>
         <label
           htmlFor="phoneNumber"
@@ -59,7 +52,6 @@ const handleSubmit = async (e: React.FormEvent) => {
         >
           Phone Number
         </label>
-      
         <div className="mt-2">
           <input
             id="phoneNumber"
@@ -99,13 +91,11 @@ const handleSubmit = async (e: React.FormEvent) => {
                   className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                 />
               </div>
-
             </div>
-
             {error && (
               <div className="text-sm text-red-500 font-medium text-center">{error}</div>
             )}
-            
+
             <div>
               <button
                 type="submit"

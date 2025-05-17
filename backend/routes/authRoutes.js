@@ -12,8 +12,9 @@ router.post("/signup", async (req, res) => {
     try {
         const { name, username, email, password, phone, blockchainWallet,  specialization, licenseNumber, hospital ,userType } = req.body;
         const [existingUser, existingUsername] = await Promise.all([
-            User.findOne({ email }),
+            User.findOne({ phone }),
             User.findOne({ username })
+
         ]);
         if (existingUser) return res.status(400).json({ error: "Email already exists" });
         if (existingUsername) return res.status(400).json({ error: "Username already exists" });
