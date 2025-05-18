@@ -1,9 +1,11 @@
+import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
-
+import { useLocation, useNavigate } from "react-router-dom";
 export function Signup() {
   const location = useLocation();
-
+  const navigate =useNavigate();
+  const [loading,setLoading]=useState(false);
+  const [error, setError] = useState("");
   const queryParams = new URLSearchParams(location.search);
   const initialRole = queryParams.get("role") || "";
 
@@ -31,8 +33,9 @@ export function Signup() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-
-    const payload = {
+    setLoading(true);
+    setError("");
+    const  payload = {
       name: formData.name,
       username: formData.username,
       email: formData.email,
@@ -48,7 +51,19 @@ export function Signup() {
       payload.hospital = formData.hospital;
     }
 
-    // axios 
+     try{
+        const response =await axios.post('http://localhost:5000/api/auth/signup',payload);
+        localStorage.setItem('token',response.data.token);
+        navigate("/signin")
+      }
+     catch(error:any){
+      const message = error.response?.data?.error || error.message || 'Login failed';
+       setError(message);
+
+     }finally{
+      setLoading(false)
+     }
+
   }
 
   return (
@@ -68,7 +83,7 @@ export function Signup() {
             className="mx-auto h-10 w-auto"
           />
           <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
-            Sign in to your account
+            Sign up to your account
           </h2>
         </div>
 
@@ -189,7 +204,7 @@ export function Signup() {
           type="submit"
           className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
-          Sign Up
+          {loading?"Signing up ...":"Sign up"}
         </button>
       </form>
     </div>
