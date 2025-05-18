@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 const posts = [
   { id: 1, title: "Doctor", href: "doctor" },
   { id: 2, title: "Patient", href: "patient" },
-  { id: 3, title: "Diagnostics", href: "diagnostics" },
+  // { id: 3, title: "Diagnostics", href: "diagnostics" },
 ];
 
 export default function Role() {
