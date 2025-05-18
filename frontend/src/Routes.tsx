@@ -6,6 +6,8 @@ import { Dashboard } from "./pages/dashboard"
 import { Layout } from "./Layout"
 import { Signup } from "./pages/signup"
 import Error from "./pages/404"
+import { PrivateRoute } from "./PrivateRoute";
+
 export default function Approutes(){
     return(
         <>
@@ -16,7 +18,10 @@ export default function Approutes(){
                 <Route path="/role"  element={<Role/>}/>
                 <Route path="/signin" element={<Signin/>}/>
                 <Route path="/signup" element={<Signup/>}/>
+            <Route element={<PrivateRoute />}>
+
                 <Route path="/dashboard" element={<Dashboard/>}/>
+            </Route>
                 <Route path="*" element={< Error/>} />
 
                 <Route/>

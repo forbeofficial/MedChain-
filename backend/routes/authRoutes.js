@@ -6,7 +6,7 @@ const { userValidationSchema, loginValidationSchema } = require("../models/user"
 const router = express.Router();
 const authMiddleware = require("../middleware/authMiddleware");
 
-router.post("/signup", async (req, res) => {
+router.post("/signup", authMiddleware, async (req, res) => {
     const validation = userValidationSchema.safeParse(req.body);
     if (!validation.success) return res.status(400).json({ errors: validation.error.errors });
     try {
@@ -57,8 +57,11 @@ router.post("/login", async (req, res) => {
     }
 });
 
-router.get("/verify-token", authMiddleware, (req, res) => {
-    res.json({ message: "Token is valid", user: req.user });
-});
+
+
+router.get('/dashboard', authMiddleware, (req, res) => {
+    res.json({ message: `Welcome to dashboard, ${req.user.name}` });
+  });
+  
 
 module.exports = router;
