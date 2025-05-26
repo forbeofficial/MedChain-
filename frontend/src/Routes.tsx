@@ -24,8 +24,8 @@ export default function Approutes() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route path="/landing" element={<MainPage />} />
-          <Route path="/role" element={<Role />} />
+        <Route index element={<MainPage />} /> 
+        <Route path="/role" element={<Role />} />
           <Route path="/signin" element={<Signin />} />
           <Route path="/signup" element={<Signup />} />
 

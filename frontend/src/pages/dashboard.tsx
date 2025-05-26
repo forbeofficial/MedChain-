@@ -14,7 +14,7 @@ import {
 
 export function Dashboard() {
   const navigate = useNavigate();
-  const role = localStorage.getItem("role");
+  const role = localStorage.getItem("userType");
 
   const handleLogout = () => {
     localStorage.removeItem("token");

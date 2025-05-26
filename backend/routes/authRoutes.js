@@ -6,7 +6,7 @@ const { userValidationSchema, loginValidationSchema } = require("../models/user"
 const router = express.Router();
 const authMiddleware = require("../middleware/authMiddleware");
 
-router.post("/signup", authMiddleware, async (req, res) => {
+router.post("/signup",  async (req, res) => {
     const validation = userValidationSchema.safeParse(req.body);
     if (!validation.success) return res.status(400).json({ errors: validation.error.errors });
     try {
@@ -43,9 +43,17 @@ router.post("/login", async (req, res) => {
     if (!validation.success) return res.status(400).json({ errors: validation.error.errors });
 
     try {
-        const { phone, password } = req.body;
+        const { phone, password , userType } = req.body;
         const user = await User.findOne({ phone });
-        if (!user || !(await user.comparePassword(password))) {
+        
+        if (!user){
+            return res.status(401).json({error:"invalid role"})
+        }
+        if(user.userType!==userType){
+            return res.status(401).json({error:"invalid role"})
+        }
+         const isValidPassword = await user.comparePassword(password, user.password);
+        if (!isValidPassword) {
             return res.status(401).json({ error: "Invalid credentials" });
         }
 
