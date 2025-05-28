@@ -94,7 +94,9 @@ npm run dev
 cd smart-contracts
 npm install
 npx hardhat compile
-npx hardhat test
+npx hardhat node  // Deploy to Local Network
+npx hardhat run scripts/deploy.js --network localhost   //LOCAL unless connected with frontend 
+
 ```
 
 ---
