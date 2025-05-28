@@ -138,5 +138,3 @@ Kim HJ, Kim HH, Ku H, et al. *Smart Decentralization of Personal Health Records 
 **MedChain** transforms how healthcare data is managed — **secure**, **private**, **interoperable**, and **accessible** when it matters most. By combining **blockchain**, **AI**, and **privacy-preserving cryptography**, it bridges the gaps in today’s fragmented healthcare ecosystem.
 
 ---
-
-Let me know if you want this turned into a formatted `README.md` or documentation site.
